@@ -7783,3 +7783,882 @@ FileNotFoundError: [WinError 2] The system cannot find the file specified
 2025-07-16 12:42:12,009 - app.main - INFO - AI Assistant API shutdown complete!
 2025-07-16 12:42:12,010 - uvicorn.error - INFO - Application shutdown complete.
 2025-07-16 12:42:12,010 - uvicorn.error - INFO - Finished server process [16772]
+2025-07-16 13:54:01,816 - app.services.audio_service - INFO - VAD initialized with mode 1, min speech duration: 200ms
+2025-07-16 13:54:11,776 - app.services.tts_service - INFO - Coqui TTS is available
+2025-07-16 13:54:11,814 - uvicorn.error - INFO - Started server process [9968]
+2025-07-16 13:54:11,815 - uvicorn.error - INFO - Waiting for application startup.
+2025-07-16 13:54:11,815 - app.main - INFO - Starting AI Assistant API...
+2025-07-16 13:54:11,816 - app.main - INFO - API Title: AI Assistant API
+2025-07-16 13:54:11,816 - app.main - INFO - API Version: 1.0.0
+2025-07-16 13:54:11,816 - app.main - INFO - Debug Mode: False
+2025-07-16 13:54:11,816 - app.main - INFO - Host: 0.0.0.0
+2025-07-16 13:54:11,817 - app.main - INFO - Port: 8000
+2025-07-16 13:54:11,817 - app.main - INFO - ASR Model: whisper-1
+2025-07-16 13:54:11,817 - app.main - INFO - LLM Model: meta-llama/llama-3.1-8b-instruct
+2025-07-16 13:54:11,818 - app.main - INFO - TTS Model: tts_models/en/ljspeech/tacotron2-DDC
+2025-07-16 13:54:11,818 - app.main - INFO - Janus URL: ws://localhost:8188
+2025-07-16 13:54:11,818 - app.main - INFO - AI Assistant API started successfully!
+2025-07-16 13:54:11,818 - uvicorn.error - INFO - Application startup complete.
+2025-07-16 13:54:11,819 - uvicorn.error - INFO - Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-07-16 13:54:12,120 - app.routers.streaming - INFO - WebSocket connection attempt from: 127.0.0.1:63849
+2025-07-16 13:54:12,120 - app.routers.streaming - INFO - Attempting to accept WebSocket connection...
+2025-07-16 13:54:12,120 - uvicorn.error - INFO - ('127.0.0.1', 63849) - "WebSocket /api/v1/streaming/ws" [accepted]
+2025-07-16 13:54:12,121 - app.routers.streaming - INFO - WebSocket connection accepted successfully
+2025-07-16 13:54:12,121 - app.services.streaming_service - INFO - WebSocket connection established: cabf5806-c7aa-4f16-97b4-33c1a3a4c56f from 127.0.0.1:63849
+2025-07-16 13:54:12,122 - app.services.streaming_service - INFO - Total active connections: 1
+2025-07-16 13:54:12,122 - uvicorn.error - INFO - connection open
+2025-07-16 13:54:12,152 - app.routers.streaming - INFO - WebSocket connection attempt from: 127.0.0.1:63852
+2025-07-16 13:54:12,152 - app.routers.streaming - INFO - Attempting to accept WebSocket connection...
+2025-07-16 13:54:12,153 - uvicorn.error - INFO - ('127.0.0.1', 63852) - "WebSocket /api/v1/streaming/ws" [accepted]
+2025-07-16 13:54:12,153 - app.routers.streaming - INFO - WebSocket connection accepted successfully
+2025-07-16 13:54:12,154 - app.services.streaming_service - INFO - WebSocket connection established: dbb6b435-ac0a-4c1e-99eb-abdc9e41c193 from 127.0.0.1:63852
+2025-07-16 13:54:12,154 - app.services.streaming_service - INFO - Total active connections: 2
+2025-07-16 13:54:12,155 - uvicorn.error - INFO - connection open
+2025-07-16 13:54:12,180 - app.routers.streaming - INFO - WebSocket connection attempt from: 127.0.0.1:63854
+2025-07-16 13:54:12,181 - app.routers.streaming - INFO - Attempting to accept WebSocket connection...
+2025-07-16 13:54:12,182 - uvicorn.error - INFO - ('127.0.0.1', 63854) - "WebSocket /api/v1/streaming/ws" [accepted]
+2025-07-16 13:54:12,182 - app.routers.streaming - INFO - WebSocket connection accepted successfully
+2025-07-16 13:54:12,183 - app.services.streaming_service - INFO - WebSocket connection established: e033c4c5-8e06-4eaf-bc29-da730fe234e8 from 127.0.0.1:63854
+2025-07-16 13:54:12,183 - app.services.streaming_service - INFO - Total active connections: 3
+2025-07-16 13:54:12,185 - uvicorn.error - INFO - connection open
+2025-07-16 13:54:12,210 - app.routers.streaming - INFO - WebSocket connection attempt from: 127.0.0.1:63856
+2025-07-16 13:54:12,211 - app.routers.streaming - INFO - Attempting to accept WebSocket connection...
+2025-07-16 13:54:12,212 - uvicorn.error - INFO - ('127.0.0.1', 63856) - "WebSocket /api/v1/streaming/ws" [accepted]
+2025-07-16 13:54:12,213 - app.routers.streaming - INFO - WebSocket connection accepted successfully
+2025-07-16 13:54:12,214 - app.services.streaming_service - INFO - WebSocket connection established: c42a2511-1f5d-497b-ab80-1c150f072a33 from 127.0.0.1:63856
+2025-07-16 13:54:12,214 - app.services.streaming_service - INFO - Total active connections: 4
+2025-07-16 13:54:12,215 - uvicorn.error - INFO - connection open
+2025-07-16 13:54:12,241 - app.routers.streaming - INFO - WebSocket connection attempt from: 127.0.0.1:63858
+2025-07-16 13:54:12,242 - app.routers.streaming - INFO - Attempting to accept WebSocket connection...
+2025-07-16 13:54:12,242 - uvicorn.error - INFO - ('127.0.0.1', 63858) - "WebSocket /api/v1/streaming/ws" [accepted]
+2025-07-16 13:54:12,243 - app.routers.streaming - INFO - WebSocket connection accepted successfully
+2025-07-16 13:54:12,243 - app.services.streaming_service - INFO - WebSocket connection established: d4bce505-916b-4f0e-83d5-67cc10e8ad1d from 127.0.0.1:63858
+2025-07-16 13:54:12,245 - app.services.streaming_service - INFO - Total active connections: 5
+2025-07-16 13:54:12,246 - uvicorn.error - INFO - connection open
+2025-07-16 13:54:12,272 - app.routers.streaming - INFO - WebSocket connection attempt from: 127.0.0.1:63860
+2025-07-16 13:54:12,272 - app.routers.streaming - INFO - Attempting to accept WebSocket connection...
+2025-07-16 13:54:12,273 - uvicorn.error - INFO - ('127.0.0.1', 63860) - "WebSocket /api/v1/streaming/ws" [accepted]
+2025-07-16 13:54:12,275 - app.routers.streaming - INFO - WebSocket connection accepted successfully
+2025-07-16 13:54:12,276 - app.services.streaming_service - INFO - WebSocket connection established: 9a2cddcb-e3e8-409c-bf88-7319972aae50 from 127.0.0.1:63860
+2025-07-16 13:54:12,276 - app.services.streaming_service - INFO - Total active connections: 6
+2025-07-16 13:54:12,278 - uvicorn.error - INFO - connection open
+2025-07-16 13:54:12,302 - app.routers.streaming - INFO - WebSocket connection attempt from: 127.0.0.1:63862
+2025-07-16 13:54:12,302 - app.routers.streaming - INFO - Attempting to accept WebSocket connection...
+2025-07-16 13:54:12,303 - uvicorn.error - INFO - ('127.0.0.1', 63862) - "WebSocket /api/v1/streaming/ws" [accepted]
+2025-07-16 13:54:12,304 - app.routers.streaming - INFO - WebSocket connection accepted successfully
+2025-07-16 13:54:12,305 - app.services.streaming_service - INFO - WebSocket connection established: b17615a5-9408-41b0-ad6f-e89d37ca27e0 from 127.0.0.1:63862
+2025-07-16 13:54:12,305 - app.services.streaming_service - INFO - Total active connections: 7
+2025-07-16 13:54:12,307 - uvicorn.error - INFO - connection open
+2025-07-16 13:54:12,332 - app.routers.streaming - INFO - WebSocket connection attempt from: 127.0.0.1:63864
+2025-07-16 13:54:12,333 - app.routers.streaming - INFO - Attempting to accept WebSocket connection...
+2025-07-16 13:54:12,333 - uvicorn.error - INFO - ('127.0.0.1', 63864) - "WebSocket /api/v1/streaming/ws" [accepted]
+2025-07-16 13:54:12,334 - app.routers.streaming - INFO - WebSocket connection accepted successfully
+2025-07-16 13:54:12,334 - app.services.streaming_service - INFO - WebSocket connection established: 6c03a4c8-c0f3-4d2e-a545-e3f2f6b96740 from 127.0.0.1:63864
+2025-07-16 13:54:12,335 - app.services.streaming_service - INFO - Total active connections: 8
+2025-07-16 13:54:12,336 - uvicorn.error - INFO - connection open
+2025-07-16 13:54:12,364 - app.routers.streaming - INFO - WebSocket connection attempt from: 127.0.0.1:63866
+2025-07-16 13:54:12,364 - app.routers.streaming - INFO - Attempting to accept WebSocket connection...
+2025-07-16 13:54:12,365 - uvicorn.error - INFO - ('127.0.0.1', 63866) - "WebSocket /api/v1/streaming/ws" [accepted]
+2025-07-16 13:54:12,366 - app.routers.streaming - INFO - WebSocket connection accepted successfully
+2025-07-16 13:54:12,366 - app.services.streaming_service - INFO - WebSocket connection established: a9f4d865-e9e1-4d5a-80cb-9e2209111a20 from 127.0.0.1:63866
+2025-07-16 13:54:12,367 - app.services.streaming_service - INFO - Total active connections: 9
+2025-07-16 13:54:12,368 - uvicorn.error - INFO - connection open
+2025-07-16 13:54:12,394 - app.routers.streaming - INFO - WebSocket connection attempt from: 127.0.0.1:63868
+2025-07-16 13:54:12,394 - app.routers.streaming - INFO - Attempting to accept WebSocket connection...
+2025-07-16 13:54:12,395 - uvicorn.error - INFO - ('127.0.0.1', 63868) - "WebSocket /api/v1/streaming/ws" [accepted]
+2025-07-16 13:54:12,396 - app.routers.streaming - INFO - WebSocket connection accepted successfully
+2025-07-16 13:54:12,397 - app.services.streaming_service - INFO - WebSocket connection established: 5efa8fd6-9808-4450-9c60-b22d1b819bcf from 127.0.0.1:63868
+2025-07-16 13:54:12,398 - app.services.streaming_service - INFO - Total active connections: 10
+2025-07-16 13:54:12,399 - uvicorn.error - INFO - connection open
+2025-07-16 13:55:10,038 - uvicorn.error - INFO - connection closed
+2025-07-16 13:55:10,039 - app.services.streaming_service - INFO - WebSocket client going away: dbb6b435-ac0a-4c1e-99eb-abdc9e41c193
+2025-07-16 13:55:10,039 - app.services.streaming_service - INFO - Cleaning up WebSocket connection: dbb6b435-ac0a-4c1e-99eb-abdc9e41c193
+2025-07-16 13:55:10,041 - app.services.streaming_service - INFO - Remaining active connections: 9
+2025-07-16 13:55:10,042 - app.routers.streaming - INFO - WebSocket connection cleanup completed
+2025-07-16 13:55:10,046 - app.services.streaming_service - INFO - WebSocket client going away: 5efa8fd6-9808-4450-9c60-b22d1b819bcf
+2025-07-16 13:55:10,048 - app.services.streaming_service - INFO - Cleaning up WebSocket connection: 5efa8fd6-9808-4450-9c60-b22d1b819bcf
+2025-07-16 13:55:10,049 - app.services.streaming_service - INFO - Remaining active connections: 8
+2025-07-16 13:55:10,049 - app.routers.streaming - INFO - WebSocket connection cleanup completed
+2025-07-16 13:55:10,050 - app.services.streaming_service - INFO - WebSocket client going away: b17615a5-9408-41b0-ad6f-e89d37ca27e0
+2025-07-16 13:55:10,050 - app.services.streaming_service - INFO - Cleaning up WebSocket connection: b17615a5-9408-41b0-ad6f-e89d37ca27e0
+2025-07-16 13:55:10,051 - app.services.streaming_service - INFO - Remaining active connections: 7
+2025-07-16 13:55:10,051 - app.routers.streaming - INFO - WebSocket connection cleanup completed
+2025-07-16 13:55:10,052 - app.services.streaming_service - INFO - WebSocket client going away: d4bce505-916b-4f0e-83d5-67cc10e8ad1d
+2025-07-16 13:55:10,053 - app.services.streaming_service - INFO - Cleaning up WebSocket connection: d4bce505-916b-4f0e-83d5-67cc10e8ad1d
+2025-07-16 13:55:10,053 - app.services.streaming_service - INFO - Remaining active connections: 6
+2025-07-16 13:55:10,054 - app.routers.streaming - INFO - WebSocket connection cleanup completed
+2025-07-16 13:55:10,055 - app.services.streaming_service - INFO - WebSocket client going away: a9f4d865-e9e1-4d5a-80cb-9e2209111a20
+2025-07-16 13:55:10,056 - app.services.streaming_service - INFO - Cleaning up WebSocket connection: a9f4d865-e9e1-4d5a-80cb-9e2209111a20
+2025-07-16 13:55:10,056 - app.services.streaming_service - INFO - Remaining active connections: 5
+2025-07-16 13:55:10,057 - app.routers.streaming - INFO - WebSocket connection cleanup completed
+2025-07-16 13:55:10,058 - app.services.streaming_service - INFO - WebSocket client going away: cabf5806-c7aa-4f16-97b4-33c1a3a4c56f
+2025-07-16 13:55:10,058 - app.services.streaming_service - INFO - Cleaning up WebSocket connection: cabf5806-c7aa-4f16-97b4-33c1a3a4c56f
+2025-07-16 13:55:10,059 - app.services.streaming_service - INFO - Remaining active connections: 4
+2025-07-16 13:55:10,059 - app.routers.streaming - INFO - WebSocket connection cleanup completed
+2025-07-16 13:55:10,060 - app.services.streaming_service - INFO - WebSocket client going away: 6c03a4c8-c0f3-4d2e-a545-e3f2f6b96740
+2025-07-16 13:55:10,061 - app.services.streaming_service - INFO - Cleaning up WebSocket connection: 6c03a4c8-c0f3-4d2e-a545-e3f2f6b96740
+2025-07-16 13:55:10,061 - app.services.streaming_service - INFO - Remaining active connections: 3
+2025-07-16 13:55:10,062 - app.routers.streaming - INFO - WebSocket connection cleanup completed
+2025-07-16 13:55:10,063 - uvicorn.error - INFO - connection closed
+2025-07-16 13:55:10,063 - uvicorn.error - INFO - connection closed
+2025-07-16 13:55:10,064 - uvicorn.error - INFO - connection closed
+2025-07-16 13:55:10,064 - uvicorn.error - INFO - connection closed
+2025-07-16 13:55:10,064 - uvicorn.error - INFO - connection closed
+2025-07-16 13:55:10,065 - app.services.streaming_service - INFO - WebSocket client going away: c42a2511-1f5d-497b-ab80-1c150f072a33
+2025-07-16 13:55:10,066 - app.services.streaming_service - INFO - Cleaning up WebSocket connection: c42a2511-1f5d-497b-ab80-1c150f072a33
+2025-07-16 13:55:10,066 - app.services.streaming_service - INFO - Remaining active connections: 2
+2025-07-16 13:55:10,067 - app.routers.streaming - INFO - WebSocket connection cleanup completed
+2025-07-16 13:55:10,067 - app.services.streaming_service - INFO - WebSocket client going away: e033c4c5-8e06-4eaf-bc29-da730fe234e8
+2025-07-16 13:55:10,068 - app.services.streaming_service - INFO - Cleaning up WebSocket connection: e033c4c5-8e06-4eaf-bc29-da730fe234e8
+2025-07-16 13:55:10,068 - app.services.streaming_service - INFO - Remaining active connections: 1
+2025-07-16 13:55:10,069 - app.routers.streaming - INFO - WebSocket connection cleanup completed
+2025-07-16 13:55:10,069 - app.services.streaming_service - INFO - WebSocket client going away: 9a2cddcb-e3e8-409c-bf88-7319972aae50
+2025-07-16 13:55:10,070 - app.services.streaming_service - INFO - Cleaning up WebSocket connection: 9a2cddcb-e3e8-409c-bf88-7319972aae50
+2025-07-16 13:55:10,070 - app.services.streaming_service - INFO - Remaining active connections: 0
+2025-07-16 13:55:10,071 - app.routers.streaming - INFO - WebSocket connection cleanup completed
+2025-07-16 13:55:10,071 - uvicorn.error - INFO - connection closed
+2025-07-16 13:55:10,071 - uvicorn.error - INFO - connection closed
+2025-07-16 13:55:10,072 - uvicorn.error - INFO - connection closed
+2025-07-16 13:55:10,072 - uvicorn.error - INFO - connection closed
+2025-07-16 13:55:11,848 - app.routers.streaming - INFO - WebSocket connection attempt from: 127.0.0.1:63986
+2025-07-16 13:55:11,849 - app.routers.streaming - INFO - Attempting to accept WebSocket connection...
+2025-07-16 13:55:11,849 - uvicorn.error - INFO - ('127.0.0.1', 63986) - "WebSocket /api/v1/streaming/ws" [accepted]
+2025-07-16 13:55:11,849 - app.routers.streaming - INFO - WebSocket connection accepted successfully
+2025-07-16 13:55:11,850 - app.services.streaming_service - INFO - WebSocket connection established: 166ede0d-bad8-4594-960c-df8b4b65d5e2 from 127.0.0.1:63986
+2025-07-16 13:55:11,850 - app.services.streaming_service - INFO - Total active connections: 1
+2025-07-16 13:55:11,851 - uvicorn.error - INFO - connection open
+2025-07-16 13:55:13,943 - app.routers.streaming - INFO - WebSocket connection attempt from: 127.0.0.1:63991
+2025-07-16 13:55:13,943 - app.routers.streaming - INFO - Attempting to accept WebSocket connection...
+2025-07-16 13:55:13,944 - uvicorn.error - INFO - ('127.0.0.1', 63991) - "WebSocket /api/v1/streaming/ws" [accepted]
+2025-07-16 13:55:13,945 - app.routers.streaming - INFO - WebSocket connection accepted successfully
+2025-07-16 13:55:13,945 - app.services.streaming_service - INFO - WebSocket connection established: 90eb5b97-7f59-4939-982f-883b25c77271 from 127.0.0.1:63991
+2025-07-16 13:55:13,946 - app.services.streaming_service - INFO - Total active connections: 2
+2025-07-16 13:55:13,946 - uvicorn.error - INFO - connection open
+2025-07-16 13:55:13,990 - app.routers.streaming - INFO - WebSocket connection attempt from: 127.0.0.1:63993
+2025-07-16 13:55:13,992 - app.routers.streaming - INFO - Attempting to accept WebSocket connection...
+2025-07-16 13:55:13,993 - uvicorn.error - INFO - ('127.0.0.1', 63993) - "WebSocket /api/v1/streaming/ws" [accepted]
+2025-07-16 13:55:13,994 - app.routers.streaming - INFO - WebSocket connection accepted successfully
+2025-07-16 13:55:13,995 - app.services.streaming_service - INFO - WebSocket connection established: 25ca34db-7208-44b3-bbeb-687464236f9b from 127.0.0.1:63993
+2025-07-16 13:55:13,996 - app.services.streaming_service - INFO - Total active connections: 3
+2025-07-16 13:55:13,999 - uvicorn.error - INFO - connection open
+2025-07-16 13:55:16,105 - app.routers.streaming - INFO - WebSocket connection attempt from: 127.0.0.1:64015
+2025-07-16 13:55:16,106 - app.routers.streaming - INFO - Attempting to accept WebSocket connection...
+2025-07-16 13:55:16,108 - uvicorn.error - INFO - ('127.0.0.1', 64015) - "WebSocket /api/v1/streaming/ws" [accepted]
+2025-07-16 13:55:16,108 - app.routers.streaming - INFO - WebSocket connection accepted successfully
+2025-07-16 13:55:16,108 - app.services.streaming_service - INFO - WebSocket connection established: 995f2b94-8688-42f6-be20-9911af3b5eb4 from 127.0.0.1:64015
+2025-07-16 13:55:16,109 - app.services.streaming_service - INFO - Total active connections: 4
+2025-07-16 13:55:16,111 - uvicorn.error - INFO - connection open
+2025-07-16 13:55:16,133 - app.routers.streaming - INFO - WebSocket connection attempt from: 127.0.0.1:64017
+2025-07-16 13:55:16,135 - app.routers.streaming - INFO - Attempting to accept WebSocket connection...
+2025-07-16 13:55:16,136 - uvicorn.error - INFO - ('127.0.0.1', 64017) - "WebSocket /api/v1/streaming/ws" [accepted]
+2025-07-16 13:55:16,136 - app.routers.streaming - INFO - WebSocket connection accepted successfully
+2025-07-16 13:55:16,136 - app.services.streaming_service - INFO - WebSocket connection established: c9fe1d6e-cf1b-4717-9e01-d03509df08e9 from 127.0.0.1:64017
+2025-07-16 13:55:16,138 - app.services.streaming_service - INFO - Total active connections: 5
+2025-07-16 13:55:16,140 - uvicorn.error - INFO - connection open
+2025-07-16 13:55:16,164 - app.routers.streaming - INFO - WebSocket connection attempt from: 127.0.0.1:64019
+2025-07-16 13:55:16,165 - app.routers.streaming - INFO - Attempting to accept WebSocket connection...
+2025-07-16 13:55:16,165 - uvicorn.error - INFO - ('127.0.0.1', 64019) - "WebSocket /api/v1/streaming/ws" [accepted]
+2025-07-16 13:55:16,166 - app.routers.streaming - INFO - WebSocket connection accepted successfully
+2025-07-16 13:55:16,166 - app.services.streaming_service - INFO - WebSocket connection established: 97104e48-35c1-4146-8035-ead8ee863834 from 127.0.0.1:64019
+2025-07-16 13:55:16,168 - app.services.streaming_service - INFO - Total active connections: 6
+2025-07-16 13:55:16,169 - uvicorn.error - INFO - connection open
+2025-07-16 13:55:17,145 - app.routers.streaming - INFO - WebSocket connection attempt from: 127.0.0.1:64022
+2025-07-16 13:55:17,146 - app.routers.streaming - INFO - Attempting to accept WebSocket connection...
+2025-07-16 13:55:17,147 - uvicorn.error - INFO - ('127.0.0.1', 64022) - "WebSocket /api/v1/streaming/ws" [accepted]
+2025-07-16 13:55:17,147 - app.routers.streaming - INFO - WebSocket connection accepted successfully
+2025-07-16 13:55:17,149 - app.services.streaming_service - INFO - WebSocket connection established: fd4a27d5-478c-4ce4-9cff-5731c69bb3c1 from 127.0.0.1:64022
+2025-07-16 13:55:17,150 - app.services.streaming_service - INFO - Total active connections: 7
+2025-07-16 13:55:17,152 - uvicorn.error - INFO - connection open
+2025-07-16 13:55:17,175 - app.routers.streaming - INFO - WebSocket connection attempt from: 127.0.0.1:64024
+2025-07-16 13:55:17,175 - app.routers.streaming - INFO - Attempting to accept WebSocket connection...
+2025-07-16 13:55:17,176 - uvicorn.error - INFO - ('127.0.0.1', 64024) - "WebSocket /api/v1/streaming/ws" [accepted]
+2025-07-16 13:55:17,177 - app.routers.streaming - INFO - WebSocket connection accepted successfully
+2025-07-16 13:55:17,179 - app.services.streaming_service - INFO - WebSocket connection established: 3eae3a07-07be-4b06-bc52-ecafb109ac96 from 127.0.0.1:64024
+2025-07-16 13:55:17,179 - app.services.streaming_service - INFO - Total active connections: 8
+2025-07-16 13:55:17,182 - uvicorn.error - INFO - connection open
+2025-07-16 13:55:17,202 - app.routers.streaming - INFO - WebSocket connection attempt from: 127.0.0.1:64026
+2025-07-16 13:55:17,203 - app.routers.streaming - INFO - Attempting to accept WebSocket connection...
+2025-07-16 13:55:17,204 - uvicorn.error - INFO - ('127.0.0.1', 64026) - "WebSocket /api/v1/streaming/ws" [accepted]
+2025-07-16 13:55:17,205 - app.routers.streaming - INFO - WebSocket connection accepted successfully
+2025-07-16 13:55:17,205 - app.services.streaming_service - INFO - WebSocket connection established: 5ce7631e-4425-4915-a4ef-2927c676039e from 127.0.0.1:64026
+2025-07-16 13:55:17,206 - app.services.streaming_service - INFO - Total active connections: 9
+2025-07-16 13:55:17,208 - uvicorn.error - INFO - connection open
+2025-07-16 13:55:17,234 - app.routers.streaming - INFO - WebSocket connection attempt from: 127.0.0.1:64028
+2025-07-16 13:55:17,235 - app.routers.streaming - INFO - Attempting to accept WebSocket connection...
+2025-07-16 13:55:17,236 - uvicorn.error - INFO - ('127.0.0.1', 64028) - "WebSocket /api/v1/streaming/ws" [accepted]
+2025-07-16 13:55:17,238 - app.routers.streaming - INFO - WebSocket connection accepted successfully
+2025-07-16 13:55:17,239 - app.services.streaming_service - INFO - WebSocket connection established: 67451c95-a35b-4aaa-936e-8de57633744a from 127.0.0.1:64028
+2025-07-16 13:55:17,239 - app.services.streaming_service - INFO - Total active connections: 10
+2025-07-16 13:55:17,242 - uvicorn.error - INFO - connection open
+2025-07-16 13:55:17,264 - app.routers.streaming - INFO - WebSocket connection attempt from: 127.0.0.1:64030
+2025-07-16 13:55:17,266 - app.routers.streaming - INFO - Attempting to accept WebSocket connection...
+2025-07-16 13:55:17,267 - uvicorn.error - INFO - ('127.0.0.1', 64030) - "WebSocket /api/v1/streaming/ws" [accepted]
+2025-07-16 13:55:17,267 - app.routers.streaming - INFO - WebSocket connection accepted successfully
+2025-07-16 13:55:17,268 - app.services.streaming_service - INFO - WebSocket connection established: 58612e89-003d-4dac-b717-98828a6d1e33 from 127.0.0.1:64030
+2025-07-16 13:55:17,270 - app.services.streaming_service - INFO - Total active connections: 11
+2025-07-16 13:55:17,271 - uvicorn.error - INFO - connection open
+2025-07-16 13:55:27,121 - app.services.streaming_service - INFO - Max buffer duration reached for 58612e89-003d-4dac-b717-98828a6d1e33, triggering transcription
+2025-07-16 13:55:27,121 - app.services.streaming_service - INFO - Processing 10.240s of audio for transcription from 58612e89-003d-4dac-b717-98828a6d1e33
+2025-07-16 13:55:27,122 - app.services.asr_service - INFO - Starting transcription with model: whisper-1
+2025-07-16 13:55:32,606 - app.services.asr_service - ERROR - Transcription failed: 
+Traceback (most recent call last):
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_transports\default.py", line 66, in map_httpcore_exceptions
+    yield
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_transports\default.py", line 366, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\connection_pool.py", line 256, in handle_async_request
+    raise exc from None
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\connection_pool.py", line 236, in handle_async_request
+    response = await connection.handle_async_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\connection.py", line 103, in handle_async_request
+    return await self._connection.handle_async_request(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\http11.py", line 136, in handle_async_request
+    raise exc
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\http11.py", line 106, in handle_async_request
+    ) = await self._receive_response_headers(**kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\http11.py", line 177, in _receive_response_headers
+    event = await self._receive_event(timeout=timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\http11.py", line 217, in _receive_event
+    data = await self._network_stream.read(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_backends\anyio.py", line 32, in read
+    with map_exceptions(exc_map):
+  File "C:\Users\krith\AppData\Local\Programs\Python\Python311\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadTimeout
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Projects\AI-Convo-Webapp\backend\app\services\asr_service.py", line 83, in transcribe_audio
+    response = await client.post(
+               ^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_client.py", line 1848, in post
+    return await self.request(
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_client.py", line 1530, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_client.py", line 1617, in send
+    response = await self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_client.py", line 1645, in _send_handling_auth
+    response = await self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_client.py", line 1682, in _send_handling_redirects
+    response = await self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_client.py", line 1719, in _send_single_request
+    response = await transport.handle_async_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_transports\default.py", line 365, in handle_async_request
+    with map_httpcore_exceptions():
+  File "C:\Users\krith\AppData\Local\Programs\Python\Python311\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_transports\default.py", line 83, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadTimeout
+2025-07-16 13:55:33,950 - app.services.streaming_service - INFO - Max buffer duration reached for 58612e89-003d-4dac-b717-98828a6d1e33, triggering transcription
+2025-07-16 13:55:33,951 - app.services.streaming_service - INFO - Processing 10.200s of audio for transcription from 58612e89-003d-4dac-b717-98828a6d1e33
+2025-07-16 13:55:33,951 - app.services.asr_service - INFO - Starting transcription with model: whisper-1
+2025-07-16 13:55:35,906 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/transcriptions "HTTP/1.1 200 OK"
+2025-07-16 13:55:35,988 - uvicorn.error - INFO - connection closed
+2025-07-16 13:55:36,006 - app.services.llm_service - INFO - Generating response with model: meta-llama/llama-3.1-8b-instruct
+2025-07-16 13:55:37,252 - app.routers.streaming - INFO - WebSocket connection attempt from: 127.0.0.1:64075
+2025-07-16 13:55:37,253 - app.routers.streaming - INFO - Attempting to accept WebSocket connection...
+2025-07-16 13:55:37,254 - uvicorn.error - INFO - ('127.0.0.1', 64075) - "WebSocket /api/v1/streaming/ws" [accepted]
+2025-07-16 13:55:37,255 - app.routers.streaming - INFO - WebSocket connection accepted successfully
+2025-07-16 13:55:37,256 - app.services.streaming_service - INFO - WebSocket connection established: 6d91f8bf-b2ea-42e3-8eb3-6569dc152353 from 127.0.0.1:64075
+2025-07-16 13:55:37,257 - app.services.streaming_service - INFO - Total active connections: 12
+2025-07-16 13:55:37,259 - uvicorn.error - INFO - connection open
+2025-07-16 13:55:37,501 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-16 13:55:37,801 - app.services.streaming_service - INFO - Background silence timeout detected for 58612e89-003d-4dac-b717-98828a6d1e33
+2025-07-16 13:55:37,801 - app.services.streaming_service - INFO - Processing 1.920s of audio for transcription from 58612e89-003d-4dac-b717-98828a6d1e33
+2025-07-16 13:55:37,802 - app.services.asr_service - INFO - Starting transcription with model: whisper-1
+2025-07-16 13:55:38,198 - app.services.streaming_service - ERROR - Error sending WebSocket message: received 1000 (OK) User stopped listening; then sent 1000 (OK) User stopped listening
+2025-07-16 13:55:38,199 - app.services.streaming_service - ERROR - WebSocket receive error (1000): 1000
+2025-07-16 13:55:38,199 - app.services.streaming_service - INFO - Cleaning up WebSocket connection: 58612e89-003d-4dac-b717-98828a6d1e33
+2025-07-16 13:55:38,201 - app.services.streaming_service - INFO - Remaining active connections: 11
+2025-07-16 13:55:38,202 - app.routers.streaming - INFO - WebSocket connection cleanup completed
+2025-07-16 13:55:40,100 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/transcriptions "HTTP/1.1 200 OK"
+2025-07-16 13:55:40,393 - app.routers.streaming - INFO - WebSocket connection attempt from: 127.0.0.1:64090
+2025-07-16 13:55:40,393 - app.routers.streaming - INFO - Attempting to accept WebSocket connection...
+2025-07-16 13:55:40,394 - uvicorn.error - INFO - ('127.0.0.1', 64090) - "WebSocket /api/v1/streaming/ws" [accepted]
+2025-07-16 13:55:40,395 - app.routers.streaming - INFO - WebSocket connection accepted successfully
+2025-07-16 13:55:40,396 - app.services.streaming_service - INFO - WebSocket connection established: 389aec53-5ec4-444d-96f4-55fc62311d0c from 127.0.0.1:64090
+2025-07-16 13:55:40,396 - app.services.streaming_service - INFO - Total active connections: 12
+2025-07-16 13:55:40,399 - uvicorn.error - INFO - connection open
+2025-07-16 13:55:40,452 - app.routers.streaming - INFO - WebSocket connection attempt from: 127.0.0.1:64092
+2025-07-16 13:55:40,453 - app.routers.streaming - INFO - Attempting to accept WebSocket connection...
+2025-07-16 13:55:40,454 - uvicorn.error - INFO - ('127.0.0.1', 64092) - "WebSocket /api/v1/streaming/ws" [accepted]
+2025-07-16 13:55:40,455 - app.routers.streaming - INFO - WebSocket connection accepted successfully
+2025-07-16 13:55:40,455 - app.services.streaming_service - INFO - WebSocket connection established: 3ce9f3b8-3ab5-4cfe-bf6f-bed55e9fba0f from 127.0.0.1:64092
+2025-07-16 13:55:40,456 - app.services.streaming_service - INFO - Total active connections: 13
+2025-07-16 13:55:40,458 - uvicorn.error - INFO - connection open
+2025-07-16 13:55:41,370 - app.routers.streaming - INFO - WebSocket connection attempt from: 127.0.0.1:64094
+2025-07-16 13:55:41,372 - app.routers.streaming - INFO - Attempting to accept WebSocket connection...
+2025-07-16 13:55:41,373 - uvicorn.error - INFO - ('127.0.0.1', 64094) - "WebSocket /api/v1/streaming/ws" [accepted]
+2025-07-16 13:55:41,373 - app.routers.streaming - INFO - WebSocket connection accepted successfully
+2025-07-16 13:55:41,374 - app.services.streaming_service - INFO - WebSocket connection established: 73c254eb-f8c9-4d73-9b85-58777f018085 from 127.0.0.1:64094
+2025-07-16 13:55:41,375 - app.services.streaming_service - INFO - Total active connections: 14
+2025-07-16 13:55:41,376 - uvicorn.error - INFO - connection open
+2025-07-16 13:55:41,400 - app.routers.streaming - INFO - WebSocket connection attempt from: 127.0.0.1:64096
+2025-07-16 13:55:41,401 - app.routers.streaming - INFO - Attempting to accept WebSocket connection...
+2025-07-16 13:55:41,402 - uvicorn.error - INFO - ('127.0.0.1', 64096) - "WebSocket /api/v1/streaming/ws" [accepted]
+2025-07-16 13:55:41,403 - app.routers.streaming - INFO - WebSocket connection accepted successfully
+2025-07-16 13:55:41,403 - app.services.streaming_service - INFO - WebSocket connection established: 41c635e8-8152-4a4a-82e2-d60348b67cbe from 127.0.0.1:64096
+2025-07-16 13:55:41,404 - app.services.streaming_service - INFO - Total active connections: 15
+2025-07-16 13:55:41,406 - uvicorn.error - INFO - connection open
+2025-07-16 13:55:41,431 - app.routers.streaming - INFO - WebSocket connection attempt from: 127.0.0.1:64098
+2025-07-16 13:55:41,432 - app.routers.streaming - INFO - Attempting to accept WebSocket connection...
+2025-07-16 13:55:41,432 - uvicorn.error - INFO - ('127.0.0.1', 64098) - "WebSocket /api/v1/streaming/ws" [accepted]
+2025-07-16 13:55:41,433 - app.routers.streaming - INFO - WebSocket connection accepted successfully
+2025-07-16 13:55:41,434 - app.services.streaming_service - INFO - WebSocket connection established: 5a0ddd77-e456-4898-adb5-ae743fa39056 from 127.0.0.1:64098
+2025-07-16 13:55:41,434 - app.services.streaming_service - INFO - Total active connections: 16
+2025-07-16 13:55:41,436 - uvicorn.error - INFO - connection open
+2025-07-16 13:55:41,464 - app.routers.streaming - INFO - WebSocket connection attempt from: 127.0.0.1:64100
+2025-07-16 13:55:41,465 - app.routers.streaming - INFO - Attempting to accept WebSocket connection...
+2025-07-16 13:55:41,466 - uvicorn.error - INFO - ('127.0.0.1', 64100) - "WebSocket /api/v1/streaming/ws" [accepted]
+2025-07-16 13:55:41,466 - app.routers.streaming - INFO - WebSocket connection accepted successfully
+2025-07-16 13:55:41,467 - app.services.streaming_service - INFO - WebSocket connection established: fcc15c37-2f2f-41b9-9e4c-956fbfc36535 from 127.0.0.1:64100
+2025-07-16 13:55:41,468 - app.services.streaming_service - INFO - Total active connections: 17
+2025-07-16 13:55:41,469 - uvicorn.error - INFO - connection open
+2025-07-16 13:55:41,493 - app.routers.streaming - INFO - WebSocket connection attempt from: 127.0.0.1:64102
+2025-07-16 13:55:41,494 - app.routers.streaming - INFO - Attempting to accept WebSocket connection...
+2025-07-16 13:55:41,494 - uvicorn.error - INFO - ('127.0.0.1', 64102) - "WebSocket /api/v1/streaming/ws" [accepted]
+2025-07-16 13:55:41,495 - app.routers.streaming - INFO - WebSocket connection accepted successfully
+2025-07-16 13:55:41,496 - app.services.streaming_service - INFO - WebSocket connection established: 4d8aee94-3abd-4d07-aebe-a7f2fcdd58e6 from 127.0.0.1:64102
+2025-07-16 13:55:41,496 - app.services.streaming_service - INFO - Total active connections: 18
+2025-07-16 13:55:41,498 - uvicorn.error - INFO - connection open
+2025-07-16 13:55:41,523 - app.routers.streaming - INFO - WebSocket connection attempt from: 127.0.0.1:64104
+2025-07-16 13:55:41,523 - app.routers.streaming - INFO - Attempting to accept WebSocket connection...
+2025-07-16 13:55:41,524 - uvicorn.error - INFO - ('127.0.0.1', 64104) - "WebSocket /api/v1/streaming/ws" [accepted]
+2025-07-16 13:55:41,525 - app.routers.streaming - INFO - WebSocket connection accepted successfully
+2025-07-16 13:55:41,526 - app.services.streaming_service - INFO - WebSocket connection established: 42fd8b42-eaff-4189-b548-8cbb15270337 from 127.0.0.1:64104
+2025-07-16 13:55:41,526 - app.services.streaming_service - INFO - Total active connections: 19
+2025-07-16 13:55:41,529 - uvicorn.error - INFO - connection open
+2025-07-16 13:55:41,554 - app.routers.streaming - INFO - WebSocket connection attempt from: 127.0.0.1:64106
+2025-07-16 13:55:41,554 - app.routers.streaming - INFO - Attempting to accept WebSocket connection...
+2025-07-16 13:55:41,555 - uvicorn.error - INFO - ('127.0.0.1', 64106) - "WebSocket /api/v1/streaming/ws" [accepted]
+2025-07-16 13:55:41,556 - app.routers.streaming - INFO - WebSocket connection accepted successfully
+2025-07-16 13:55:41,556 - app.services.streaming_service - INFO - WebSocket connection established: a32d4e39-33e4-4bc1-a4bf-e3d6c84efb5f from 127.0.0.1:64106
+2025-07-16 13:55:41,556 - app.services.streaming_service - INFO - Total active connections: 20
+2025-07-16 13:55:41,558 - uvicorn.error - INFO - connection open
+2025-07-16 13:55:41,585 - app.routers.streaming - INFO - WebSocket connection attempt from: 127.0.0.1:64108
+2025-07-16 13:55:41,585 - app.routers.streaming - INFO - Attempting to accept WebSocket connection...
+2025-07-16 13:55:41,586 - uvicorn.error - INFO - ('127.0.0.1', 64108) - "WebSocket /api/v1/streaming/ws" [accepted]
+2025-07-16 13:55:41,588 - app.routers.streaming - INFO - WebSocket connection accepted successfully
+2025-07-16 13:55:41,589 - app.services.streaming_service - INFO - WebSocket connection established: 09deed39-4e4b-478e-92e8-cd91f0f86c40 from 127.0.0.1:64108
+2025-07-16 13:55:41,589 - app.services.streaming_service - INFO - Total active connections: 21
+2025-07-16 13:55:41,590 - uvicorn.error - INFO - connection open
+2025-07-16 13:55:41,616 - app.routers.streaming - INFO - WebSocket connection attempt from: 127.0.0.1:64110
+2025-07-16 13:55:41,616 - app.routers.streaming - INFO - Attempting to accept WebSocket connection...
+2025-07-16 13:55:41,618 - uvicorn.error - INFO - ('127.0.0.1', 64110) - "WebSocket /api/v1/streaming/ws" [accepted]
+2025-07-16 13:55:41,619 - app.routers.streaming - INFO - WebSocket connection accepted successfully
+2025-07-16 13:55:41,620 - app.services.streaming_service - INFO - WebSocket connection established: e0132918-776a-4095-a34b-4fd3727d612b from 127.0.0.1:64110
+2025-07-16 13:55:41,621 - app.services.streaming_service - INFO - Total active connections: 22
+2025-07-16 13:55:41,622 - uvicorn.error - INFO - connection open
+2025-07-16 13:55:41,648 - app.routers.streaming - INFO - WebSocket connection attempt from: 127.0.0.1:64112
+2025-07-16 13:55:41,649 - app.routers.streaming - INFO - Attempting to accept WebSocket connection...
+2025-07-16 13:55:41,650 - uvicorn.error - INFO - ('127.0.0.1', 64112) - "WebSocket /api/v1/streaming/ws" [accepted]
+2025-07-16 13:55:41,651 - app.routers.streaming - INFO - WebSocket connection accepted successfully
+2025-07-16 13:55:41,652 - app.services.streaming_service - INFO - WebSocket connection established: c82024f9-1009-4af5-98b4-3f36fe97b0ca from 127.0.0.1:64112
+2025-07-16 13:55:41,653 - app.services.streaming_service - INFO - Total active connections: 23
+2025-07-16 13:55:41,655 - uvicorn.error - INFO - connection open
+2025-07-16 13:55:41,676 - app.routers.streaming - INFO - WebSocket connection attempt from: 127.0.0.1:64114
+2025-07-16 13:55:41,679 - app.routers.streaming - INFO - Attempting to accept WebSocket connection...
+2025-07-16 13:55:41,680 - uvicorn.error - INFO - ('127.0.0.1', 64114) - "WebSocket /api/v1/streaming/ws" [accepted]
+2025-07-16 13:55:41,681 - app.routers.streaming - INFO - WebSocket connection accepted successfully
+2025-07-16 13:55:41,682 - app.services.streaming_service - INFO - WebSocket connection established: 0018e589-71e9-4860-947b-79a705ed7b75 from 127.0.0.1:64114
+2025-07-16 13:55:41,683 - app.services.streaming_service - INFO - Total active connections: 24
+2025-07-16 13:55:41,684 - uvicorn.error - INFO - connection open
+2025-07-16 13:55:45,040 - app.services.streaming_service - INFO - Silence timeout reached for 0018e589-71e9-4860-947b-79a705ed7b75, triggering transcription
+2025-07-16 13:55:45,041 - app.services.streaming_service - INFO - Processing 7.560s of audio for transcription from 0018e589-71e9-4860-947b-79a705ed7b75
+2025-07-16 13:55:45,042 - app.services.asr_service - INFO - Starting transcription with model: whisper-1
+2025-07-16 13:55:50,546 - app.services.asr_service - ERROR - Transcription failed: 
+Traceback (most recent call last):
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_transports\default.py", line 66, in map_httpcore_exceptions
+    yield
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_transports\default.py", line 366, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\connection_pool.py", line 256, in handle_async_request
+    raise exc from None
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\connection_pool.py", line 236, in handle_async_request
+    response = await connection.handle_async_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\connection.py", line 103, in handle_async_request
+    return await self._connection.handle_async_request(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\http11.py", line 136, in handle_async_request
+    raise exc
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\http11.py", line 106, in handle_async_request
+    ) = await self._receive_response_headers(**kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\http11.py", line 177, in _receive_response_headers
+    event = await self._receive_event(timeout=timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\http11.py", line 217, in _receive_event
+    data = await self._network_stream.read(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_backends\anyio.py", line 32, in read
+    with map_exceptions(exc_map):
+  File "C:\Users\krith\AppData\Local\Programs\Python\Python311\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadTimeout
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Projects\AI-Convo-Webapp\backend\app\services\asr_service.py", line 83, in transcribe_audio
+    response = await client.post(
+               ^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_client.py", line 1848, in post
+    return await self.request(
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_client.py", line 1530, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_client.py", line 1617, in send
+    response = await self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_client.py", line 1645, in _send_handling_auth
+    response = await self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_client.py", line 1682, in _send_handling_redirects
+    response = await self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_client.py", line 1719, in _send_single_request
+    response = await transport.handle_async_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_transports\default.py", line 365, in handle_async_request
+    with map_httpcore_exceptions():
+  File "C:\Users\krith\AppData\Local\Programs\Python\Python311\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_transports\default.py", line 83, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadTimeout
+2025-07-16 13:55:51,056 - app.services.streaming_service - INFO - Max buffer duration reached for 0018e589-71e9-4860-947b-79a705ed7b75, triggering transcription
+2025-07-16 13:55:51,056 - app.services.streaming_service - INFO - Processing 10.160s of audio for transcription from 0018e589-71e9-4860-947b-79a705ed7b75
+2025-07-16 13:55:51,056 - app.services.asr_service - INFO - Starting transcription with model: whisper-1
+2025-07-16 13:55:56,601 - app.services.asr_service - ERROR - Transcription failed: 
+Traceback (most recent call last):
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_transports\default.py", line 66, in map_httpcore_exceptions
+    yield
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_transports\default.py", line 366, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\connection_pool.py", line 256, in handle_async_request
+    raise exc from None
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\connection_pool.py", line 236, in handle_async_request
+    response = await connection.handle_async_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\connection.py", line 103, in handle_async_request
+    return await self._connection.handle_async_request(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\http11.py", line 136, in handle_async_request
+    raise exc
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\http11.py", line 106, in handle_async_request
+    ) = await self._receive_response_headers(**kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\http11.py", line 177, in _receive_response_headers
+    event = await self._receive_event(timeout=timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\http11.py", line 217, in _receive_event
+    data = await self._network_stream.read(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_backends\anyio.py", line 32, in read
+    with map_exceptions(exc_map):
+  File "C:\Users\krith\AppData\Local\Programs\Python\Python311\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadTimeout
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Projects\AI-Convo-Webapp\backend\app\services\asr_service.py", line 83, in transcribe_audio
+    response = await client.post(
+               ^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_client.py", line 1848, in post
+    return await self.request(
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_client.py", line 1530, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_client.py", line 1617, in send
+    response = await self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_client.py", line 1645, in _send_handling_auth
+    response = await self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_client.py", line 1682, in _send_handling_redirects
+    response = await self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_client.py", line 1719, in _send_single_request
+    response = await transport.handle_async_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_transports\default.py", line 365, in handle_async_request
+    with map_httpcore_exceptions():
+  File "C:\Users\krith\AppData\Local\Programs\Python\Python311\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_transports\default.py", line 83, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadTimeout
+2025-07-16 13:55:56,640 - app.services.streaming_service - INFO - Max buffer duration reached for 0018e589-71e9-4860-947b-79a705ed7b75, triggering transcription
+2025-07-16 13:55:56,641 - app.services.streaming_service - INFO - Processing 10.140s of audio for transcription from 0018e589-71e9-4860-947b-79a705ed7b75
+2025-07-16 13:55:56,641 - app.services.asr_service - INFO - Starting transcription with model: whisper-1
+2025-07-16 13:56:02,096 - app.services.asr_service - ERROR - Transcription failed: 
+Traceback (most recent call last):
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_transports\default.py", line 66, in map_httpcore_exceptions
+    yield
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_transports\default.py", line 366, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\connection_pool.py", line 256, in handle_async_request
+    raise exc from None
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\connection_pool.py", line 236, in handle_async_request
+    response = await connection.handle_async_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\connection.py", line 103, in handle_async_request
+    return await self._connection.handle_async_request(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\http11.py", line 136, in handle_async_request
+    raise exc
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\http11.py", line 106, in handle_async_request
+    ) = await self._receive_response_headers(**kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\http11.py", line 177, in _receive_response_headers
+    event = await self._receive_event(timeout=timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\http11.py", line 217, in _receive_event
+    data = await self._network_stream.read(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_backends\anyio.py", line 32, in read
+    with map_exceptions(exc_map):
+  File "C:\Users\krith\AppData\Local\Programs\Python\Python311\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadTimeout
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Projects\AI-Convo-Webapp\backend\app\services\asr_service.py", line 83, in transcribe_audio
+    response = await client.post(
+               ^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_client.py", line 1848, in post
+    return await self.request(
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_client.py", line 1530, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_client.py", line 1617, in send
+    response = await self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_client.py", line 1645, in _send_handling_auth
+    response = await self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_client.py", line 1682, in _send_handling_redirects
+    response = await self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_client.py", line 1719, in _send_single_request
+    response = await transport.handle_async_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_transports\default.py", line 365, in handle_async_request
+    with map_httpcore_exceptions():
+  File "C:\Users\krith\AppData\Local\Programs\Python\Python311\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_transports\default.py", line 83, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadTimeout
+2025-07-16 13:56:02,164 - app.services.streaming_service - INFO - Max buffer duration reached for 0018e589-71e9-4860-947b-79a705ed7b75, triggering transcription
+2025-07-16 13:56:02,166 - app.services.streaming_service - INFO - Processing 10.020s of audio for transcription from 0018e589-71e9-4860-947b-79a705ed7b75
+2025-07-16 13:56:02,166 - app.services.asr_service - INFO - Starting transcription with model: whisper-1
+2025-07-16 13:56:07,602 - app.services.asr_service - ERROR - Transcription failed: 
+Traceback (most recent call last):
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_transports\default.py", line 66, in map_httpcore_exceptions
+    yield
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_transports\default.py", line 366, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\connection_pool.py", line 256, in handle_async_request
+    raise exc from None
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\connection_pool.py", line 236, in handle_async_request
+    response = await connection.handle_async_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\connection.py", line 103, in handle_async_request
+    return await self._connection.handle_async_request(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\http11.py", line 136, in handle_async_request
+    raise exc
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\http11.py", line 106, in handle_async_request
+    ) = await self._receive_response_headers(**kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\http11.py", line 177, in _receive_response_headers
+    event = await self._receive_event(timeout=timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\http11.py", line 217, in _receive_event
+    data = await self._network_stream.read(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_backends\anyio.py", line 32, in read
+    with map_exceptions(exc_map):
+  File "C:\Users\krith\AppData\Local\Programs\Python\Python311\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadTimeout
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Projects\AI-Convo-Webapp\backend\app\services\asr_service.py", line 83, in transcribe_audio
+    response = await client.post(
+               ^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_client.py", line 1848, in post
+    return await self.request(
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_client.py", line 1530, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_client.py", line 1617, in send
+    response = await self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_client.py", line 1645, in _send_handling_auth
+    response = await self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_client.py", line 1682, in _send_handling_redirects
+    response = await self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_client.py", line 1719, in _send_single_request
+    response = await transport.handle_async_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_transports\default.py", line 365, in handle_async_request
+    with map_httpcore_exceptions():
+  File "C:\Users\krith\AppData\Local\Programs\Python\Python311\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_transports\default.py", line 83, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadTimeout
+2025-07-16 13:56:07,645 - app.services.streaming_service - INFO - Max buffer duration reached for 0018e589-71e9-4860-947b-79a705ed7b75, triggering transcription
+2025-07-16 13:56:07,646 - app.services.streaming_service - INFO - Processing 10.140s of audio for transcription from 0018e589-71e9-4860-947b-79a705ed7b75
+2025-07-16 13:56:07,647 - app.services.asr_service - INFO - Starting transcription with model: whisper-1
+2025-07-16 13:56:13,039 - app.services.asr_service - ERROR - Transcription failed: 
+Traceback (most recent call last):
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_transports\default.py", line 66, in map_httpcore_exceptions
+    yield
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_transports\default.py", line 366, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\connection_pool.py", line 256, in handle_async_request
+    raise exc from None
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\connection_pool.py", line 236, in handle_async_request
+    response = await connection.handle_async_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\connection.py", line 103, in handle_async_request
+    return await self._connection.handle_async_request(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\http11.py", line 136, in handle_async_request
+    raise exc
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\http11.py", line 106, in handle_async_request
+    ) = await self._receive_response_headers(**kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\http11.py", line 177, in _receive_response_headers
+    event = await self._receive_event(timeout=timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\http11.py", line 217, in _receive_event
+    data = await self._network_stream.read(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_backends\anyio.py", line 32, in read
+    with map_exceptions(exc_map):
+  File "C:\Users\krith\AppData\Local\Programs\Python\Python311\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadTimeout
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Projects\AI-Convo-Webapp\backend\app\services\asr_service.py", line 83, in transcribe_audio
+    response = await client.post(
+               ^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_client.py", line 1848, in post
+    return await self.request(
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_client.py", line 1530, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_client.py", line 1617, in send
+    response = await self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_client.py", line 1645, in _send_handling_auth
+    response = await self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_client.py", line 1682, in _send_handling_redirects
+    response = await self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_client.py", line 1719, in _send_single_request
+    response = await transport.handle_async_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_transports\default.py", line 365, in handle_async_request
+    with map_httpcore_exceptions():
+  File "C:\Users\krith\AppData\Local\Programs\Python\Python311\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_transports\default.py", line 83, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadTimeout
+2025-07-16 13:56:13,077 - app.services.streaming_service - INFO - Max buffer duration reached for 0018e589-71e9-4860-947b-79a705ed7b75, triggering transcription
+2025-07-16 13:56:13,077 - app.services.streaming_service - INFO - Processing 10.140s of audio for transcription from 0018e589-71e9-4860-947b-79a705ed7b75
+2025-07-16 13:56:13,077 - app.services.asr_service - INFO - Starting transcription with model: whisper-1
+2025-07-16 13:56:18,571 - app.services.asr_service - ERROR - Transcription failed: 
+Traceback (most recent call last):
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_transports\default.py", line 66, in map_httpcore_exceptions
+    yield
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_transports\default.py", line 366, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\connection_pool.py", line 256, in handle_async_request
+    raise exc from None
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\connection_pool.py", line 236, in handle_async_request
+    response = await connection.handle_async_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\connection.py", line 103, in handle_async_request
+    return await self._connection.handle_async_request(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\http11.py", line 136, in handle_async_request
+    raise exc
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\http11.py", line 106, in handle_async_request
+    ) = await self._receive_response_headers(**kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\http11.py", line 177, in _receive_response_headers
+    event = await self._receive_event(timeout=timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\http11.py", line 217, in _receive_event
+    data = await self._network_stream.read(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_backends\anyio.py", line 32, in read
+    with map_exceptions(exc_map):
+  File "C:\Users\krith\AppData\Local\Programs\Python\Python311\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadTimeout
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Projects\AI-Convo-Webapp\backend\app\services\asr_service.py", line 83, in transcribe_audio
+    response = await client.post(
+               ^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_client.py", line 1848, in post
+    return await self.request(
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_client.py", line 1530, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_client.py", line 1617, in send
+    response = await self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_client.py", line 1645, in _send_handling_auth
+    response = await self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_client.py", line 1682, in _send_handling_redirects
+    response = await self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_client.py", line 1719, in _send_single_request
+    response = await transport.handle_async_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_transports\default.py", line 365, in handle_async_request
+    with map_httpcore_exceptions():
+  File "C:\Users\krith\AppData\Local\Programs\Python\Python311\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_transports\default.py", line 83, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadTimeout
+2025-07-16 13:56:18,603 - app.services.streaming_service - INFO - Max buffer duration reached for 0018e589-71e9-4860-947b-79a705ed7b75, triggering transcription
+2025-07-16 13:56:18,603 - app.services.streaming_service - INFO - Processing 10.140s of audio for transcription from 0018e589-71e9-4860-947b-79a705ed7b75
+2025-07-16 13:56:18,605 - app.services.asr_service - INFO - Starting transcription with model: whisper-1
+2025-07-16 13:56:24,021 - app.services.asr_service - ERROR - Transcription failed: 
+Traceback (most recent call last):
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_transports\default.py", line 66, in map_httpcore_exceptions
+    yield
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_transports\default.py", line 366, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\connection_pool.py", line 256, in handle_async_request
+    raise exc from None
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\connection_pool.py", line 236, in handle_async_request
+    response = await connection.handle_async_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\connection.py", line 103, in handle_async_request
+    return await self._connection.handle_async_request(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\http11.py", line 136, in handle_async_request
+    raise exc
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\http11.py", line 106, in handle_async_request
+    ) = await self._receive_response_headers(**kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\http11.py", line 177, in _receive_response_headers
+    event = await self._receive_event(timeout=timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_async\http11.py", line 217, in _receive_event
+    data = await self._network_stream.read(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_backends\anyio.py", line 32, in read
+    with map_exceptions(exc_map):
+  File "C:\Users\krith\AppData\Local\Programs\Python\Python311\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadTimeout
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Projects\AI-Convo-Webapp\backend\app\services\asr_service.py", line 83, in transcribe_audio
+    response = await client.post(
+               ^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_client.py", line 1848, in post
+    return await self.request(
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_client.py", line 1530, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_client.py", line 1617, in send
+    response = await self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_client.py", line 1645, in _send_handling_auth
+    response = await self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_client.py", line 1682, in _send_handling_redirects
+    response = await self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_client.py", line 1719, in _send_single_request
+    response = await transport.handle_async_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_transports\default.py", line 365, in handle_async_request
+    with map_httpcore_exceptions():
+  File "C:\Users\krith\AppData\Local\Programs\Python\Python311\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "D:\Projects\AI-Convo-Webapp\backend\venv\Lib\site-packages\httpx\_transports\default.py", line 83, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadTimeout
+2025-07-16 13:56:31,702 - app.services.streaming_service - ERROR - Error sending WebSocket message: sent 1011 (internal error) keepalive ping timeout; no close frame received
+2025-07-16 13:56:31,703 - app.services.streaming_service - ERROR - Error handling audio chunk: '0018e589-71e9-4860-947b-79a705ed7b75'
+2025-07-16 13:56:31,704 - uvicorn.error - INFO - connection closed
+2025-07-16 13:56:31,705 - app.services.streaming_service - ERROR - WebSocket receive error (unknown): '0018e589-71e9-4860-947b-79a705ed7b75'
+2025-07-16 13:56:31,705 - app.services.streaming_service - INFO - Cleaning up WebSocket connection: 0018e589-71e9-4860-947b-79a705ed7b75
+2025-07-16 13:56:31,706 - app.services.streaming_service - INFO - Remaining active connections: 23
+2025-07-16 13:56:31,707 - app.routers.streaming - INFO - WebSocket connection cleanup completed

@@ -22,7 +22,6 @@ export const useAudioManager = (): UseAudioManagerReturn => {
   const [currentResponse, setCurrentResponse] = useState('');
   const [error, setError] = useState<string | null>(null);
   
-  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const websocketRef = useRef<WebSocket | null>(null);
@@ -30,6 +29,12 @@ export const useAudioManager = (): UseAudioManagerReturn => {
   const isConnectedRef = useRef<boolean>(false);
   const audioPlayerRef = useRef<HTMLAudioElement | null>(null);
   const isPausedRef = useRef<boolean>(false);
+  
+  // Add refs for sequencing and debouncing
+  const isProcessingSequenceRef = useRef<boolean>(false);
+  const lastTranscriptRef = useRef<string>('');
+  const lastResponseRef = useRef<string>('');
+  const debounceTimeoutRef = useRef<number | null>(null);
   
   const SAMPLE_RATE = 16000;
 
@@ -42,6 +47,18 @@ export const useAudioManager = (): UseAudioManagerReturn => {
     console.log(`Audio state transition: ${audioState} → ${newState}`);
     setAudioState(newState);
   }, [audioState]);
+  
+  // Debounced state setter to prevent rapid state changes
+  const setAudioStateDebounced = useCallback((newState: AudioState, delay: number = 100) => {
+    if (debounceTimeoutRef.current) {
+      clearTimeout(debounceTimeoutRef.current);
+    }
+    
+    debounceTimeoutRef.current = window.setTimeout(() => {
+      setAudioStateWithLog(newState);
+      debounceTimeoutRef.current = null;
+    }, delay);
+  }, [setAudioStateWithLog]);
 
   const playTTSAudio = useCallback(async (audioDataHex: string) => {
     try {
@@ -68,9 +85,12 @@ export const useAudioManager = (): UseAudioManagerReturn => {
         URL.revokeObjectURL(audioUrl);
         audioPlayerRef.current = null;
         
+        // Reset processing sequence
+        isProcessingSequenceRef.current = false;
+        
         // Resume listening after TTS finishes (if not manually paused)
         if (!isPausedRef.current) {
-          setAudioStateWithLog('listening');
+          setAudioStateDebounced('listening');
         }
       };
       
@@ -79,9 +99,12 @@ export const useAudioManager = (): UseAudioManagerReturn => {
         URL.revokeObjectURL(audioUrl);
         audioPlayerRef.current = null;
         
+        // Reset processing sequence
+        isProcessingSequenceRef.current = false;
+        
         // Resume listening on error (if not manually paused)
         if (!isPausedRef.current) {
-          setAudioStateWithLog('listening');
+          setAudioStateDebounced('listening');
         }
       };
       
@@ -89,12 +112,15 @@ export const useAudioManager = (): UseAudioManagerReturn => {
     } catch (error) {
       console.error('Error playing TTS audio:', error);
       
+      // Reset processing sequence
+      isProcessingSequenceRef.current = false;
+      
       // Resume listening on error (if not manually paused)
       if (!isPausedRef.current) {
-        setAudioStateWithLog('listening');
+        setAudioStateDebounced('listening');
       }
     }
-  }, [setAudioStateWithLog]);
+  }, [setAudioStateDebounced]);
 
   const initializeWebSocket = useCallback(async () => {
     if (websocketRef.current && isConnectedRef.current) {
@@ -129,10 +155,20 @@ export const useAudioManager = (): UseAudioManagerReturn => {
             connectionIdRef.current = data.connection_id;
           } 
           else if (data.type === 'transcription_response') {
-            if (data.success && data.text) {
+            if (data.success && data.text && data.text !== lastTranscriptRef.current) {
+              // Prevent processing duplicate transcriptions
+              if (isProcessingSequenceRef.current) {
+                console.log('Skipping transcription - already processing sequence');
+                return;
+              }
+              
               console.log('Transcription received:', data.text);
+              lastTranscriptRef.current = data.text;
               setCurrentTranscript(data.text);
               setAudioStateWithLog('processing');
+              
+              // Mark sequence as processing
+              isProcessingSequenceRef.current = true;
               
               // Send chat request immediately after transcription
               if (ws.readyState === WebSocket.OPEN) {
@@ -143,14 +179,15 @@ export const useAudioManager = (): UseAudioManagerReturn => {
               }
             } else {
               // No text transcribed, resume listening
-              if (!isPausedRef.current) {
-                setAudioStateWithLog('listening');
+              if (!isPausedRef.current && !isProcessingSequenceRef.current) {
+                setAudioStateDebounced('listening');
               }
             }
           } 
           else if (data.type === 'chat_response') {
-            if (data.success && data.message) {
+            if (data.success && data.message && data.message !== lastResponseRef.current) {
               console.log('Chat response received:', data.message);
+              lastResponseRef.current = data.message;
               setCurrentResponse(data.message);
               
               // Request TTS for the response
@@ -162,8 +199,9 @@ export const useAudioManager = (): UseAudioManagerReturn => {
               }
             } else {
               // Chat failed, resume listening
+              isProcessingSequenceRef.current = false;
               if (!isPausedRef.current) {
-                setAudioStateWithLog('listening');
+                setAudioStateDebounced('listening');
               }
             }
           } 
@@ -175,17 +213,20 @@ export const useAudioManager = (): UseAudioManagerReturn => {
             } else {
               // TTS failed, resume listening
               console.error('TTS failed:', data.error);
+              isProcessingSequenceRef.current = false;
               if (!isPausedRef.current) {
-                setAudioStateWithLog('listening');
+                setAudioStateDebounced('listening');
               }
             }
           }
           else if (data.type === 'error') {
             console.error('WebSocket error from server:', data.message);
             setError(data.message);
+            isProcessingSequenceRef.current = false;
           }
         } catch (err) {
           console.error('WebSocket message error:', err);
+          isProcessingSequenceRef.current = false;
         }
       };
     
@@ -214,7 +255,7 @@ export const useAudioManager = (): UseAudioManagerReturn => {
       console.error('Failed to create WebSocket:', error);
       setError('Failed to create WebSocket connection');
     }
-  }, [setAudioStateWithLog]);
+  }, [setAudioStateDebounced, setAudioStateWithLog, playTTSAudio]);
 
   const startListening = useCallback(async () => {
     try {
@@ -290,10 +331,19 @@ export const useAudioManager = (): UseAudioManagerReturn => {
       console.error('Error starting audio manager:', err);
       setError('Failed to start audio system');
     }
-  }, [initializeWebSocket, audioState, setAudioStateWithLog]);
+  }, [initializeWebSocket, setAudioStateWithLog]);
   
   const stopListening = useCallback(() => {
     isPausedRef.current = true;
+    
+    // Reset processing sequence
+    isProcessingSequenceRef.current = false;
+    
+    // Clear debounce timeout
+    if (debounceTimeoutRef.current) {
+      clearTimeout(debounceTimeoutRef.current);
+      debounceTimeoutRef.current = null;
+    }
     
     if (streamRef.current) {
       streamRef.current.getTracks().forEach(track => track.stop());
@@ -322,6 +372,10 @@ export const useAudioManager = (): UseAudioManagerReturn => {
     setCurrentTranscript('');
     setCurrentResponse('');
     setError(null);
+    
+    // Reset tracking refs
+    lastTranscriptRef.current = '';
+    lastResponseRef.current = '';
   }, [setAudioStateWithLog]);
 
   const pauseListening = useCallback(() => {
@@ -352,7 +406,7 @@ export const useAudioManager = (): UseAudioManagerReturn => {
     return () => {
       stopListening();
     };
-  }, []);
+  }, [startListening, stopListening]);
   
   return {
     audioState,

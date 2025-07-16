@@ -1,25 +1,16 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   Box,
-  Paper,
   Typography,
   Alert,
 } from '@mui/material';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
 
 import { useAudioManager } from '../hooks/useAudioManager.ts';
 import LiveAudioVisualizer from './LiveAudioVisualizer.tsx';
 import ResponseDisplay from './ResponseDisplay.tsx';
 
-interface Message {
-  id: string;
-  role: 'user' | 'assistant';
-  content: string;
-  timestamp: Date;
-  audioUrl?: string;
-  rating?: number;
-}
 
 interface VoiceSession {
   transcription: string;
@@ -29,12 +20,14 @@ interface VoiceSession {
 }
 
 const ChatInterface: React.FC = () => {
-  const [currentResponse, setCurrentResponse] = useState('');
   const [showResponse, setShowResponse] = useState(false);
   const [hasVoiceActivity, setHasVoiceActivity] = useState(false);
   const [isTTSComplete, setIsTTSComplete] = useState(false);
   const [voiceSessions, setVoiceSessions] = useState<VoiceSession[]>([]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  
+  // Track last processed response to prevent duplicates
+  const lastProcessedResponseRef = useRef('');
 
   // Unified audio management hook
   const {
@@ -44,11 +37,7 @@ const ChatInterface: React.FC = () => {
     isSpeaking,
     currentTranscript,
     currentResponse: audioResponse,
-    error: audioError,
-    startListening,
-    stopListening,
-    pauseListening,
-    resumeListening
+    error: audioError
   } = useAudioManager();
 
   // Auto-scroll to bottom when new sessions arrive
@@ -63,29 +52,34 @@ const ChatInterface: React.FC = () => {
 
   // Handle voice sessions from audio manager
   useEffect(() => {
-    if (audioResponse && currentTranscript) {
+    if (audioResponse && currentTranscript && audioResponse !== lastProcessedResponseRef.current) {
+      // Update the last processed response
+      lastProcessedResponseRef.current = audioResponse;
+      
       const session: VoiceSession = {
         transcription: currentTranscript,
         response: audioResponse,
         timestamp: new Date(),
-        isComplete: isSpeaking || audioState === 'speaking'
+        isComplete: audioState === 'speaking' || audioState === 'processing'
       };
       
       setVoiceSessions(prev => {
-        // Avoid duplicates by checking if this session already exists
-        const lastSession = prev[prev.length - 1];
-        if (lastSession && 
-            lastSession.transcription === session.transcription && 
-            lastSession.response === session.response) {
+        // More robust duplicate detection
+        const isDuplicate = prev.some(existingSession => 
+          existingSession.transcription === session.transcription && 
+          existingSession.response === session.response &&
+          Math.abs(existingSession.timestamp.getTime() - session.timestamp.getTime()) < 1000 // Within 1 second
+        );
+        
+        if (isDuplicate) {
           return prev;
         }
         return [...prev, session];
       });
       
-      setCurrentResponse(audioResponse);
       setShowResponse(true);
     }
-  }, [audioResponse, currentTranscript, isSpeaking, audioState]);
+  }, [audioResponse, currentTranscript, audioState]);
 
   // Update TTS completion based on audio state
   useEffect(() => {
@@ -96,12 +90,6 @@ const ChatInterface: React.FC = () => {
     }
   }, [audioState, isTTSComplete]);
 
-  // Handle response fade completion
-  const handleResponseFade = useCallback(() => {
-    setShowResponse(false);
-    setCurrentResponse('');
-    setIsTTSComplete(false);
-  }, []);
 
   // Handle errors
   useEffect(() => {
@@ -143,7 +131,7 @@ const ChatInterface: React.FC = () => {
         )}
 
         {/* Welcome Message */}
-        {!currentResponse && !isProcessing && (
+        {!audioResponse && !isProcessing && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -179,7 +167,7 @@ const ChatInterface: React.FC = () => {
 
         {/* Response Display */}
         <ResponseDisplay
-          response={currentResponse || audioResponse}
+          response={audioResponse}
           isVisible={showResponse}
           onTTSComplete={() => {}} // TTS is now handled by audio manager
         />

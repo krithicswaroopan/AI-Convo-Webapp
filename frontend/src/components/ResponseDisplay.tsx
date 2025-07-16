@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { Box, Typography, Paper } from '@mui/material';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { Typography, Paper } from '@mui/material';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface ResponseDisplayProps {
@@ -18,21 +18,52 @@ const ResponseDisplay: React.FC<ResponseDisplayProps> = ({
   const [showResponse, setShowResponse] = useState(false);
   const [fadeTimeout, setFadeTimeout] = useState<number | null>(null);
   
+  // Use refs to track ongoing operations
+  const typingTimeoutRef = useRef<number | null>(null);
+  const isTypingCancelledRef = useRef(false);
+  const lastResponseRef = useRef('');
+  
   const TYPING_SPEED = 50; // ms per character
   const FADE_DELAY = 20000; // 20 seconds
   
+  const cancelTyping = useCallback(() => {
+    if (typingTimeoutRef.current) {
+      clearTimeout(typingTimeoutRef.current);
+      typingTimeoutRef.current = null;
+    }
+    isTypingCancelledRef.current = true;
+  }, []);
+  
   const typeText = useCallback(async (text: string) => {
+    // Cancel any ongoing typing
+    cancelTyping();
+    
     setIsTyping(true);
     setDisplayText('');
+    isTypingCancelledRef.current = false;
     
     for (let i = 0; i <= text.length; i++) {
+      // Check if typing was cancelled
+      if (isTypingCancelledRef.current) {
+        return;
+      }
+      
       setDisplayText(text.substring(0, i));
-      await new Promise(resolve => setTimeout(resolve, TYPING_SPEED));
+      
+      // Use ref to track timeout and allow cancellation
+      await new Promise<void>((resolve) => {
+        typingTimeoutRef.current = window.setTimeout(() => {
+          typingTimeoutRef.current = null;
+          resolve();
+        }, TYPING_SPEED);
+      });
     }
     
-    setIsTyping(false);
-    onTTSComplete(); // Notify that typing is complete for TTS
-  }, [onTTSComplete]);
+    if (!isTypingCancelledRef.current) {
+      setIsTyping(false);
+      onTTSComplete(); // Notify that typing is complete for TTS
+    }
+  }, [onTTSComplete, cancelTyping]);
   
   const startFadeTimer = useCallback(() => {
     if (fadeTimeout) {
@@ -48,7 +79,9 @@ const ResponseDisplay: React.FC<ResponseDisplayProps> = ({
   }, [fadeTimeout]);
   
   useEffect(() => {
-    if (response && isVisible) {
+    // Only start typing if this is a new response
+    if (response && isVisible && response !== lastResponseRef.current) {
+      lastResponseRef.current = response;
       setShowResponse(true);
       typeText(response);
     }
@@ -65,6 +98,16 @@ const ResponseDisplay: React.FC<ResponseDisplayProps> = ({
       }
     };
   }, [isTyping, displayText, startFadeTimer, fadeTimeout]);
+  
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      cancelTyping();
+      if (fadeTimeout) {
+        window.clearTimeout(fadeTimeout);
+      }
+    };
+  }, [cancelTyping, fadeTimeout]);
   
   return (
     <AnimatePresence>
