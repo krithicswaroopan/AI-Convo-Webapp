@@ -19,11 +19,23 @@ class AudioService:
         self.sample_rate = settings.sample_rate
         self.chunk_duration_ms = settings.chunk_duration_ms
         self.vad_mode = settings.vad_mode
+        self.min_speech_duration_ms = settings.vad_min_speech_duration_ms
+        self.speech_threshold = settings.vad_speech_threshold
+        
+        # Speech tracking for minimum duration
+        self.speech_frames = []
+        self.silence_frames = []
+        
+        # Adaptive VAD parameters
+        self.noise_floor = 50.0  # Initial noise floor estimate
+        self.noise_samples = []
+        self.max_noise_samples = 100
+        self.adaptive_threshold_multiplier = 2.5
         
         # Initialize VAD
         try:
             self.vad = webrtcvad.Vad(self.vad_mode)
-            logger.info(f"VAD initialized with mode {self.vad_mode}")
+            logger.info(f"VAD initialized with mode {self.vad_mode}, min speech duration: {self.min_speech_duration_ms}ms")
         except Exception as e:
             logger.error(f"Failed to initialize VAD: {str(e)}")
             self.vad = None
@@ -76,7 +88,7 @@ class AudioService:
         sample_rate: Optional[int] = None
     ) -> Tuple[bytes, bool]:
         """
-        Process an audio chunk with VAD and noise suppression.
+        Process an audio chunk with enhanced VAD and noise suppression.
         
         Args:
             audio_data: Raw audio data
@@ -90,16 +102,41 @@ class AudioService:
             
             # Check if VAD is available
             if not self.vad:
-                return audio_data, True  # Assume speech if VAD not available
+                return audio_data, False  # Conservative approach if VAD not available
             
-            # Calculate frame size for VAD
-            frame_size = int(sample_rate * self.chunk_duration_ms / 1000)
+            # Calculate frame size for VAD (WebRTC VAD requires 10ms, 20ms, or 30ms frames)
+            # Use 20ms frames for better balance between accuracy and latency
+            vad_frame_duration_ms = 20
+            frame_size = int(sample_rate * vad_frame_duration_ms / 1000)
             
             # Convert bytes to 16-bit PCM samples
+            # Ensure buffer size is aligned for int16 (2 bytes per sample)
+            if len(audio_data) % 2 != 0:
+                # Pad with a zero byte if odd length
+                audio_data = audio_data + b'\x00'
+            
             audio_samples = np.frombuffer(audio_data, dtype=np.int16)
             
+            # Basic audio validation - check if audio has sufficient energy
+            if len(audio_samples) == 0:
+                return audio_data, False
+            
+            # Calculate RMS for dynamic thresholding
+            rms = np.sqrt(np.mean(audio_samples.astype(np.float32) ** 2))
+            
+            # Update noise floor estimation
+            self._update_noise_floor(rms)
+            
+            # Dynamic noise threshold based on adaptive noise floor
+            dynamic_threshold = self.noise_floor * self.adaptive_threshold_multiplier
+            
+            if rms < dynamic_threshold:
+                logger.debug(f"Audio below adaptive threshold: RMS={rms:.1f}, threshold={dynamic_threshold:.1f}")
+                return audio_data, False
+            
             # Process audio in frames
-            has_speech = False
+            speech_frame_count = 0
+            total_frame_count = 0
             processed_frames = []
             
             for i in range(0, len(audio_samples), frame_size):
@@ -114,23 +151,95 @@ class AudioService:
                 
                 # Check for speech activity
                 try:
-                    if self.vad.is_speech(frame_bytes, sample_rate):
-                        has_speech = True
-                        processed_frames.append(frame)
+                    # Ensure frame is exactly the right size for VAD
+                    if len(frame_bytes) == frame_size * 2:  # 2 bytes per int16 sample
+                        if self.vad.is_speech(frame_bytes, sample_rate):
+                            speech_frame_count += 1
+                            self.speech_frames.append(True)
+                            processed_frames.append(frame)
+                        else:
+                            self.silence_frames.append(True)
+                    else:
+                        logger.debug(f"Frame size mismatch: expected {frame_size * 2} bytes, got {len(frame_bytes)}")
+                        processed_frames.append(frame)  # Include frame anyway
+                        
+                    total_frame_count += 1
                 except Exception as e:
                     logger.warning(f"VAD processing error: {str(e)}")
                     processed_frames.append(frame)  # Include frame anyway
+                    total_frame_count += 1
             
-            if processed_frames:
+            # Calculate speech confidence ratio
+            if total_frame_count == 0:
+                return audio_data, False
+            
+            speech_ratio = speech_frame_count / total_frame_count
+            
+            # Apply minimum speech duration and confidence threshold
+            has_significant_speech = (
+                speech_ratio >= self.speech_threshold and 
+                speech_frame_count >= 2  # At least 2 frames must be speech
+            )
+            
+            # Maintain rolling window of speech/silence detection
+            self._cleanup_frame_history()
+            
+            if has_significant_speech and processed_frames:
                 # Combine processed frames
                 processed_audio = np.concatenate(processed_frames)
-                return processed_audio.tobytes(), has_speech
+                logger.debug(f"Speech detected: {speech_frame_count}/{total_frame_count} frames, ratio: {speech_ratio:.3f}")
+                return processed_audio.tobytes(), True
             else:
+                logger.debug(f"No significant speech: {speech_frame_count}/{total_frame_count} frames, ratio: {speech_ratio:.3f}")
                 return audio_data, False
                 
         except Exception as e:
             logger.error(f"Audio processing failed: {str(e)}")
-            return audio_data, True  # Return original audio on error
+            return audio_data, False  # Conservative approach on error
+    
+    def _cleanup_frame_history(self):
+        """Clean up frame history to prevent memory buildup."""
+        # Keep only last 100 frames of history
+        max_frames = 100
+        if len(self.speech_frames) > max_frames:
+            self.speech_frames = self.speech_frames[-max_frames:]
+        if len(self.silence_frames) > max_frames:
+            self.silence_frames = self.silence_frames[-max_frames:]
+    
+    def _update_noise_floor(self, rms: float):
+        """Update adaptive noise floor based on recent audio samples."""
+        try:
+            # Add sample to noise estimation (only if likely to be noise)
+            if len(self.speech_frames) == 0 or len(self.silence_frames) > len(self.speech_frames):
+                self.noise_samples.append(rms)
+                
+                # Limit noise sample history
+                if len(self.noise_samples) > self.max_noise_samples:
+                    self.noise_samples = self.noise_samples[-self.max_noise_samples:]
+                
+                # Update noise floor as running average of lower percentile
+                if len(self.noise_samples) >= 10:
+                    sorted_samples = sorted(self.noise_samples)
+                    # Use 25th percentile as noise floor estimate
+                    percentile_index = len(sorted_samples) // 4
+                    new_noise_floor = sorted_samples[percentile_index]
+                    
+                    # Smooth the update
+                    self.noise_floor = 0.9 * self.noise_floor + 0.1 * new_noise_floor
+                    
+                    logger.debug(f"Updated noise floor: {self.noise_floor:.1f} (from {len(self.noise_samples)} samples)")
+                    
+        except Exception as e:
+            logger.warning(f"Noise floor update failed: {str(e)}")
+    
+    def get_noise_floor_info(self) -> dict:
+        """Get current noise floor information for debugging."""
+        return {
+            "noise_floor": self.noise_floor,
+            "samples_count": len(self.noise_samples),
+            "current_threshold": self.noise_floor * self.adaptive_threshold_multiplier,
+            "vad_mode": self.vad_mode
+        }
     
     def apply_noise_suppression(self, audio_data: bytes) -> bytes:
         """
@@ -144,6 +253,10 @@ class AudioService:
         """
         try:
             # Convert to numpy array
+            # Ensure buffer size is aligned for int16 (2 bytes per sample)
+            if len(audio_data) % 2 != 0:
+                audio_data = audio_data + b'\x00'
+            
             audio_samples = np.frombuffer(audio_data, dtype=np.int16)
             
             # Simple noise gate (remove very quiet parts)
@@ -181,6 +294,10 @@ class AudioService:
             Normalized audio data
         """
         try:
+            # Ensure buffer size is aligned for int16 (2 bytes per sample)
+            if len(audio_data) % 2 != 0:
+                audio_data = audio_data + b'\x00'
+            
             audio_samples = np.frombuffer(audio_data, dtype=np.int16)
             
             # Calculate RMS
@@ -215,6 +332,10 @@ class AudioService:
         try:
             if not self.vad:
                 return False
+            
+            # Ensure buffer size is aligned for int16 (2 bytes per sample)
+            if len(audio_data) % 2 != 0:
+                audio_data = audio_data + b'\x00'
             
             audio_samples = np.frombuffer(audio_data, dtype=np.int16)
             frame_size = int(self.sample_rate * self.chunk_duration_ms / 1000)
@@ -260,6 +381,10 @@ class AudioService:
             Duration in milliseconds
         """
         try:
+            # Ensure buffer size is aligned for int16 (2 bytes per sample)
+            if len(audio_data) % 2 != 0:
+                audio_data = audio_data + b'\x00'
+            
             audio_samples = np.frombuffer(audio_data, dtype=np.int16)
             duration_seconds = len(audio_samples) / self.sample_rate
             return duration_seconds * 1000

@@ -22,3 +22,4 @@ backend/app/services/__pycache__/streaming_service.cpython-311.pyc
 backend/app/services/__pycache__/tts_service.cpython-311.pyc
 backend/.env
 .cursor/rules/projrules.mdc
+

@@ -74,8 +74,10 @@ class Settings(BaseSettings):
     
     # Audio Processing Configuration
     sample_rate: int = Field(default=16000, env="SAMPLE_RATE")
-    chunk_duration_ms: int = Field(default=30, env="CHUNK_DURATION_MS")
-    vad_mode: int = Field(default=3, env="VAD_MODE")  # 0-3, higher = more aggressive
+    chunk_duration_ms: int = Field(default=100, env="CHUNK_DURATION_MS")  # Increased from 30ms to 100ms for stability
+    vad_mode: int = Field(default=1, env="VAD_MODE")  # Reduced from 3 to 1 for less aggressive detection
+    vad_min_speech_duration_ms: int = Field(default=200, env="VAD_MIN_SPEECH_DURATION_MS")  # Minimum speech duration
+    vad_speech_threshold: float = Field(default=0.5, env="VAD_SPEECH_THRESHOLD")  # Speech confidence threshold
     
     # WebRTC Configuration
     janus_url: str = Field(

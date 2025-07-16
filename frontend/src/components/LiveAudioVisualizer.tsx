@@ -5,6 +5,7 @@ import { Mic, MicOff, VolumeUp } from '@mui/icons-material';
 interface LiveAudioVisualizerProps {
   isListening: boolean;
   isProcessing: boolean;
+  isSpeaking?: boolean;
   hasVoiceActivity: boolean;
   currentTranscript: string;
   error: string | null;
@@ -35,6 +36,7 @@ const rippleAnimation = keyframes`
 const LiveAudioVisualizer: React.FC<LiveAudioVisualizerProps> = ({
   isListening,
   isProcessing,
+  isSpeaking = false,
   hasVoiceActivity,
   currentTranscript,
   error
@@ -57,6 +59,7 @@ const LiveAudioVisualizer: React.FC<LiveAudioVisualizerProps> = ({
   
   const getStatusColor = () => {
     if (error) return 'error.main';
+    if (isSpeaking) return 'secondary.main';
     if (isProcessing) return 'warning.main';
     if (hasVoiceActivity) return 'success.main';
     if (isListening) return 'primary.main';
@@ -65,10 +68,17 @@ const LiveAudioVisualizer: React.FC<LiveAudioVisualizerProps> = ({
   
   const getStatusText = () => {
     if (error) return 'Error';
+    if (isSpeaking) return 'Speaking...';
     if (isProcessing) return 'Processing...';
     if (hasVoiceActivity) return 'Voice Detected';
     if (isListening) return 'Listening...';
     return 'Inactive';
+  };
+
+  const getStatusIcon = () => {
+    if (error) return <MicOff sx={{ color: 'white', fontSize: 20 }} />;
+    if (isSpeaking) return <VolumeUp sx={{ color: 'white', fontSize: 20 }} />;
+    return <Mic sx={{ color: 'white', fontSize: 20 }} />;
   };
   
   return (
@@ -104,7 +114,7 @@ const LiveAudioVisualizer: React.FC<LiveAudioVisualizerProps> = ({
             }}
           >
             {/* Ripple Effect */}
-            {hasVoiceActivity && (
+            {(hasVoiceActivity || isSpeaking) && (
               <Box
                 sx={{
                   position: 'absolute',
@@ -128,14 +138,10 @@ const LiveAudioVisualizer: React.FC<LiveAudioVisualizerProps> = ({
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                animation: isListening ? `${pulseAnimation} 2s ease-in-out infinite` : 'none',
+                animation: (isListening || isSpeaking) ? `${pulseAnimation} 2s ease-in-out infinite` : 'none',
               }}
             >
-              {error ? (
-                <MicOff sx={{ color: 'white', fontSize: 20 }} />
-              ) : (
-                <Mic sx={{ color: 'white', fontSize: 20 }} />
-              )}
+              {getStatusIcon()}
             </Box>
           </Box>
           

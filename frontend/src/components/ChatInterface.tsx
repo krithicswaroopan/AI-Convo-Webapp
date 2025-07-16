@@ -8,8 +8,7 @@ import {
 import { motion, AnimatePresence } from 'framer-motion';
 import toast from 'react-hot-toast';
 
-import { useContinuousAudio } from '../hooks/useContinuousAudio.ts';
-import { useTTS } from '../hooks/useTTS.ts';
+import { useAudioManager } from '../hooks/useAudioManager.ts';
 import LiveAudioVisualizer from './LiveAudioVisualizer.tsx';
 import ResponseDisplay from './ResponseDisplay.tsx';
 
@@ -37,17 +36,20 @@ const ChatInterface: React.FC = () => {
   const [voiceSessions, setVoiceSessions] = useState<VoiceSession[]>([]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // Custom hooks
+  // Unified audio management hook
   const {
+    audioState,
     isListening,
     isProcessing,
+    isSpeaking,
     currentTranscript,
+    currentResponse: audioResponse,
     error: audioError,
     startListening,
-    stopListening
-  } = useContinuousAudio();
-  
-  const { synthesizeSpeech } = useTTS();
+    stopListening,
+    pauseListening,
+    resumeListening
+  } = useAudioManager();
 
   // Auto-scroll to bottom when new sessions arrive
   useEffect(() => {
@@ -59,58 +61,40 @@ const ChatInterface: React.FC = () => {
     setHasVoiceActivity(Boolean(currentTranscript));
   }, [currentTranscript]);
 
-  // Handle WebSocket messages from continuous audio
+  // Handle voice sessions from audio manager
   useEffect(() => {
-    const handleWebSocketMessage = (event: MessageEvent) => {
-      try {
-        const data = JSON.parse(event.data);
-        
-        if (data.type === 'chat_response' && data.success) {
-          setCurrentResponse(data.message);
-          setShowResponse(true);
-          
-          // Create voice session
-          const session: VoiceSession = {
-            transcription: currentTranscript,
-            response: data.message,
-            timestamp: new Date(),
-            isComplete: false
-          };
-          
-          setVoiceSessions(prev => [...prev, session]);
+    if (audioResponse && currentTranscript) {
+      const session: VoiceSession = {
+        transcription: currentTranscript,
+        response: audioResponse,
+        timestamp: new Date(),
+        isComplete: isSpeaking || audioState === 'speaking'
+      };
+      
+      setVoiceSessions(prev => {
+        // Avoid duplicates by checking if this session already exists
+        const lastSession = prev[prev.length - 1];
+        if (lastSession && 
+            lastSession.transcription === session.transcription && 
+            lastSession.response === session.response) {
+          return prev;
         }
-      } catch (error) {
-        console.error('WebSocket message handling error:', error);
-      }
-    };
-
-    // This would be handled by the continuous audio hook
-    // Just showing the pattern here
-  }, [currentTranscript]);
-
-  // Handle TTS completion
-  const handleTTSComplete = useCallback(async () => {
-    try {
-      if (currentResponse) {
-        const audioData = await synthesizeSpeech(currentResponse);
-        
-        if (audioData) {
-          const audioUrl = URL.createObjectURL(audioData);
-          const audio = new Audio(audioUrl);
-          
-          audio.onended = () => {
-            setIsTTSComplete(true);
-            URL.revokeObjectURL(audioUrl);
-          };
-          
-          await audio.play();
-        }
-      }
-    } catch (error) {
-      toast.error('Failed to synthesize speech');
-      console.error('TTS error:', error);
+        return [...prev, session];
+      });
+      
+      setCurrentResponse(audioResponse);
+      setShowResponse(true);
     }
-  }, [currentResponse, synthesizeSpeech]);
+  }, [audioResponse, currentTranscript, isSpeaking, audioState]);
+
+  // Update TTS completion based on audio state
+  useEffect(() => {
+    if (audioState === 'listening' && isTTSComplete !== true) {
+      setIsTTSComplete(true);
+    } else if (audioState === 'speaking') {
+      setIsTTSComplete(false);
+    }
+  }, [audioState, isTTSComplete]);
 
   // Handle response fade completion
   const handleResponseFade = useCallback(() => {
@@ -132,6 +116,7 @@ const ChatInterface: React.FC = () => {
       <LiveAudioVisualizer
         isListening={isListening}
         isProcessing={isProcessing}
+        isSpeaking={isSpeaking}
         hasVoiceActivity={hasVoiceActivity}
         currentTranscript={currentTranscript}
         error={audioError}
@@ -194,9 +179,9 @@ const ChatInterface: React.FC = () => {
 
         {/* Response Display */}
         <ResponseDisplay
-          response={currentResponse}
+          response={currentResponse || audioResponse}
           isVisible={showResponse}
-          onTTSComplete={handleTTSComplete}
+          onTTSComplete={() => {}} // TTS is now handled by audio manager
         />
 
         {/* Voice Sessions History (Hidden but tracked) */}

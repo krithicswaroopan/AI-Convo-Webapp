@@ -163,4 +163,22 @@ async def asr_health_check():
             "service": "asr",
             "error": str(e),
             "available": False
-        } 
+        }
+
+
+@router.get("/debug/vad-status")
+async def get_vad_status():
+    """Get current VAD and noise floor status for debugging."""
+    try:
+        from app.services.audio_service import audio_service
+        return {
+            "status": "success",
+            "vad_info": audio_service.get_noise_floor_info(),
+            "timestamp": None
+        }
+    except Exception as e:
+        return {
+            "status": "error",
+            "error": str(e),
+            "timestamp": None
+        }

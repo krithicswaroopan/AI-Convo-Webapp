@@ -21,6 +21,8 @@ class StreamingService:
         self.admin_secret = settings.janus_admin_secret
         self.active_connections: Dict[str, Dict[str, Any]] = {}
         self.websocket_connections: Dict[str, websockets.WebSocketServerProtocol] = {}
+        self._silence_check_task = None
+        self._start_silence_checker()
     
     async def create_janus_session(self) -> Optional[str]:
         """
@@ -148,7 +150,11 @@ class StreamingService:
             "session_id": None,
             "room_id": None,
             "last_activity": time.time(),
-            "is_active": True
+            "is_active": True,
+            "last_speech_time": None,
+            "speech_timeout": 1.5,  # seconds of silence before triggering transcription
+            "min_audio_duration": 0.15,  # minimum audio duration in seconds for API
+            "max_buffer_duration": 10.0  # maximum buffer duration in seconds
         }
 
         try:
@@ -264,13 +270,17 @@ class StreamingService:
             else:
                 audio_bytes = audio_data
             
-            # Process audio with VAD and noise suppression
+            # Process PCM audio with VAD and noise suppression
             from app.services.audio_service import audio_service
             processed_audio, has_speech = audio_service.process_audio_chunk(audio_bytes)
             
-            # Debug logging for VAD results
+            logger.debug(f"Received PCM audio chunk: {len(audio_bytes)} bytes from {connection_id}, has_speech: {has_speech}")
+            
+            # Debug logging for VAD results (reduced verbosity)
             if has_speech:
-                logger.info(f"VAD detected speech in audio chunk from {connection_id}")
+                logger.debug(f"VAD detected speech in audio chunk from {connection_id}")
+            else:
+                logger.debug(f"VAD detected silence in audio chunk from {connection_id}")
             
             if has_speech:
                 # Store audio for transcription
@@ -278,14 +288,19 @@ class StreamingService:
                     self.active_connections[connection_id] = {
                         "audio_buffer": [],
                         "session_id": None,
-                        "room_id": None
+                        "room_id": None,
+                        "last_speech_time": None,
+                        "speech_timeout": 1.5,
+                        "min_audio_duration": 0.15,
+                        "max_buffer_duration": 10.0
                     }
                 
+                # Add audio to buffer and update speech timing
                 self.active_connections[connection_id]["audio_buffer"].append(processed_audio)
-                await self.handle_transcription_request(connection_id, {
-                            "language": "en",
-                            "prompt": None
-                        })
+                self.active_connections[connection_id]["last_speech_time"] = time.time()
+                
+                # Check if we should trigger transcription
+                await self._check_transcription_trigger(connection_id)
                 
                 # Send processed audio to Janus if connected
                 if self.active_connections[connection_id].get("session_id"):
@@ -294,28 +309,113 @@ class StreamingService:
                         processed_audio
                     )
                     
+            else:
+                # No speech detected - check if we should trigger transcription after silence
+                if connection_id in self.active_connections:
+                    last_speech_time = self.active_connections[connection_id].get("last_speech_time")
+                    if last_speech_time and self.active_connections[connection_id]["audio_buffer"]:
+                        silence_duration = time.time() - last_speech_time
+                        speech_timeout = self.active_connections[connection_id]["speech_timeout"]
+                        
+                        if silence_duration >= speech_timeout:
+                            logger.info(f"Silence timeout reached for {connection_id}, triggering transcription")
+                            await self._process_buffered_audio(connection_id)
+                
         except Exception as e:
             logger.error(f"Error handling audio chunk: {str(e)}")
     
-    async def handle_transcription_request(
-        self,
-        connection_id: str,
-        data: Dict[str, Any]
-    ):
-        """Handle transcription request."""
+    async def _check_transcription_trigger(self, connection_id: str):
+        """Check if we should trigger transcription based on buffer state."""
         try:
             if connection_id not in self.active_connections:
                 return
             
-            audio_buffer = self.active_connections[connection_id].get("audio_buffer", [])
+            connection = self.active_connections[connection_id]
+            audio_buffer = connection["audio_buffer"]
+            
+            if not audio_buffer:
+                return
+            
+            # Calculate total buffered audio duration
+            from app.services.audio_service import audio_service
+            total_audio = b"".join(audio_buffer)
+            duration_ms = audio_service.get_audio_duration(total_audio)
+            duration_seconds = duration_ms / 1000.0
+            
+            # Trigger transcription if buffer exceeds maximum duration
+            if duration_seconds >= connection["max_buffer_duration"]:
+                logger.info(f"Max buffer duration reached for {connection_id}, triggering transcription")
+                await self._process_buffered_audio(connection_id)
+                
+        except Exception as e:
+            logger.error(f"Error checking transcription trigger: {str(e)}")
+    
+    async def _process_buffered_audio(self, connection_id: str):
+        """Process buffered audio for transcription."""
+        try:
+            if connection_id not in self.active_connections:
+                return
+            
+            connection = self.active_connections[connection_id]
+            audio_buffer = connection["audio_buffer"]
+            
             if not audio_buffer:
                 return
             
             # Combine audio chunks
             combined_audio = b"".join(audio_buffer)
             
-            # Clear buffer
-            self.active_connections[connection_id]["audio_buffer"] = []
+            # Check minimum duration requirement
+            from app.services.audio_service import audio_service
+            duration_ms = audio_service.get_audio_duration(combined_audio)
+            duration_seconds = duration_ms / 1000.0
+            
+            if duration_seconds < connection["min_audio_duration"]:
+                logger.debug(f"Audio too short ({duration_seconds:.3f}s), skipping transcription for {connection_id}")
+                # Clear buffer anyway to prevent accumulation of very short clips
+                connection["audio_buffer"] = []
+                connection["last_speech_time"] = None
+                return
+            
+            # Clear buffer first
+            connection["audio_buffer"] = []
+            connection["last_speech_time"] = None
+            
+            logger.info(f"Processing {duration_seconds:.3f}s of audio for transcription from {connection_id}")
+            
+            # Trigger transcription
+            await self.handle_transcription_request(connection_id, {
+                "language": "en",
+                "prompt": None
+            }, combined_audio)
+            
+        except Exception as e:
+            logger.error(f"Error processing buffered audio: {str(e)}")
+    
+    async def handle_transcription_request(
+        self,
+        connection_id: str,
+        data: Dict[str, Any],
+        pre_combined_audio: Optional[bytes] = None
+    ):
+        """Handle transcription request."""
+        try:
+            if connection_id not in self.active_connections:
+                return
+            
+            # Use pre-combined audio if provided, otherwise combine from buffer
+            if pre_combined_audio:
+                combined_audio = pre_combined_audio
+            else:
+                audio_buffer = self.active_connections[connection_id].get("audio_buffer", [])
+                if not audio_buffer:
+                    return
+                
+                # Combine audio chunks
+                combined_audio = b"".join(audio_buffer)
+                
+                # Clear buffer
+                self.active_connections[connection_id]["audio_buffer"] = []
             
             # Transcribe audio
             from app.services.asr_service import asr_service
@@ -327,7 +427,8 @@ class StreamingService:
                 prompt=data.get("prompt")
             )
             
-            response = await asr_service.transcribe_audio(request)
+            # PCM audio data needs WAV conversion
+            response = await asr_service.transcribe_audio(request, is_raw_pcm=True)
             
             # Send transcription result back
             await self.send_websocket_message(connection_id, {
@@ -497,6 +598,40 @@ class StreamingService:
                 del self.websocket_connections[connection_id]
             if connection_id in self.active_connections:
                 del self.active_connections[connection_id]
+    
+    def _start_silence_checker(self):
+        """Start the background task for checking silence timeouts."""
+        try:
+            loop = asyncio.get_event_loop()
+            self._silence_check_task = loop.create_task(self._silence_check_loop())
+        except RuntimeError:
+            # No event loop running yet, will be started later
+            pass
+    
+    async def _silence_check_loop(self):
+        """Background loop to check for silence timeouts."""
+        while True:
+            try:
+                await asyncio.sleep(0.5)  # Check every 500ms
+                current_time = time.time()
+                
+                # Check all connections for silence timeouts
+                connections_to_process = []
+                for connection_id, connection in self.active_connections.items():
+                    last_speech_time = connection.get("last_speech_time")
+                    if (last_speech_time and 
+                        connection["audio_buffer"] and 
+                        current_time - last_speech_time >= connection["speech_timeout"]):
+                        connections_to_process.append(connection_id)
+                
+                # Process connections that have timed out
+                for connection_id in connections_to_process:
+                    logger.info(f"Background silence timeout detected for {connection_id}")
+                    await self._process_buffered_audio(connection_id)
+                    
+            except Exception as e:
+                logger.error(f"Error in silence check loop: {str(e)}")
+                await asyncio.sleep(1.0)  # Wait longer on error
 
 
 # Global streaming service instance
